@@ -9,7 +9,9 @@ const connectDB = async () => {
     const db = await mongoose.connect(url, {
       dbName: "ChatAppMicroServiceApp",
     });
-    console.log(`MongoDB connected  on ${db?.connection?.host} successfully`);
+    console.log(
+      `☑️  MongoDB connected  on ${db?.connection?.host} successfully`
+    );
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     process.exit(1);
