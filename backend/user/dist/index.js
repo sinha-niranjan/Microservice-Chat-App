@@ -6,8 +6,10 @@ import userRoutes from "./routes/User.js";
 import { connectRabbitMQ } from "./config/rabbitmq.js";
 dotenv.config();
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 5000;
-app.use("/api/v1", userRoutes);
+app.use("/api/v1/user", userRoutes);
 app.get("/health", (req, res) => {
     res.send("Health of user service is good");
 });
