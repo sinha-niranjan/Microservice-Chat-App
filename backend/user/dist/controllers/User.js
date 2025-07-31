@@ -65,3 +65,35 @@ export const myProfile = TryCatch(async (req, res) => {
     const user = req.user;
     res.json(user);
 });
+export const updateName = TryCatch(async (req, res) => {
+    const user = await User.findById(req.user?._id);
+    if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+    }
+    const { name } = req.body;
+    if (!name) {
+        res.status(400).json({ message: "Name is required" });
+        return;
+    }
+    user.name = name;
+    await user.save();
+    const token = generateToken(user);
+    res.status(200).json({
+        message: "Name updated successfully",
+        user,
+        token,
+    });
+});
+export const getAllUsers = TryCatch(async (req, res) => {
+    const users = await User.find();
+    res.status(200).json(users);
+});
+export const getUserById = TryCatch(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+    }
+    res.status(200).json(user);
+});

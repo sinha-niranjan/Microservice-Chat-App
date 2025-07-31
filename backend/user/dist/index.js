@@ -4,10 +4,12 @@ import dotenv from "dotenv";
 import { createClient } from "redis";
 import userRoutes from "./routes/User.js";
 import { connectRabbitMQ } from "./config/rabbitmq.js";
+import cors from "cors";
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 app.use("/api/v1/user", userRoutes);
 app.get("/health", (req, res) => {

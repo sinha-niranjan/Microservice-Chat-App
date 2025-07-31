@@ -1,5 +1,12 @@
 import express from "express";
-import { loginUser, myProfile, verifyUser } from "../controllers/User.js";
+import {
+  getAllUsers,
+  getUserById,
+  loginUser,
+  myProfile,
+  updateName,
+  verifyUser,
+} from "../controllers/User.js";
 import { isAuth } from "../middleware/isAuth.js";
 
 const router = express.Router();
@@ -7,5 +14,8 @@ const router = express.Router();
 router.post("/login", loginUser);
 router.post("/verify", verifyUser);
 router.get("/me", isAuth, myProfile);
+router.put("/update", isAuth, updateName);
+router.get("/all", isAuth, getAllUsers);
+router.get("/:id", getUserById);
 
 export default router;
